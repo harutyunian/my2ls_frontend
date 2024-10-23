@@ -34,7 +34,6 @@ export default function JsonFormatter() {
         />
         <Button onClick={handleValidate}>Validate json</Button>
         <TextField
-            disbled
             value={output}
             className={styles.input}
             label="Output"
