@@ -1,45 +1,45 @@
-name: Deploy NestJS App with Docker
+name: Deploy Next.js to SSH Server
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - main
+      - main # Change to your deploy branch if needed
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.4
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Build and push Docker image
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Build Docker image
+        run: docker build -t my2ls_app .
+
+      - name: Save Docker image
+        run: docker save my2ls_app | gzip > my2ls_app.tar.gz
+
+      - name: Copy Docker image to server
+        uses: appleboy/scp-action@v0.2.0
+        with:
+          source: my2ls_app.tar.gz
+          target: ${{ secrets.CONTABO_MY2LS_USER }}@${{ secrets.CONTABO_MY2LS_IP }}:/home/${{ secrets.CONTABO_MY2LS_USER }}/my2ls_app.tar.gz
+
+      - name: Load Docker image on server and start container
         run: |
-          docker build -t your_dockerhub_username/nestjs-app:latest .
-          docker push your_dockerhub_username/nestjs-app:latest
-
-      - name: Deploy to VPS
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H your_vps_ip >> ~/.ssh/known_hosts
-
-          # Pull the new image and restart the container on the VPS
-          ssh ${{secrets.CONTABO_MY2LS_USER}}@{{secrets.CONTABO_MY2LS_IP}} <<'EOF'
-            docker pull ${{ secrets.DOCKER_USERNAME }}/nestjs-app:latest
-            docker stop nestjs-app || true
-            docker rm nestjs-app || true
-            docker run -d --name nestjs-app -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/nestjs-app:latest
+          ssh -o StrictHostKeyChecking=no ${{ secrets.CONTABO_MY2LS_USER }}@${{ secrets.CONTABO_MY2LS_IP }} << 'EOF'
+            docker load -i /home/${{ secrets.CONTABO_MY2LS_USER }}/my2ls_app.tar.gz
+            docker rm -f my2ls_app || true
+            docker run -d -p 80:3000 --name my2ls_app my2ls_app
           EOF
