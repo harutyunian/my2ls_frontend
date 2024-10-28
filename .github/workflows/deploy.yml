@@ -1,53 +1,70 @@
-name: Deploy Next.js to SSH Server
+name: CI/CD for Nest.js App
 
 on:
-  workflow_dispatch:
   push:
     branches:
-      - main # Change to your deploy branch if needed
-      - ci/cd # Change to your deploy branch if needed
+      - main
+      - ci/cd
 
 jobs:
-  deploy:
+  build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.5.4
+      - name: Install Node.js
+        uses: actions/setup-node@v2
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          node-version: '18'
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Application
+        run: npm run build
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
       - name: Build Docker image
-        run: docker build -t my2ls_app .
+        run: docker build -t my2ls .
 
-      - name: Save Docker image
-        run: docker save my2ls_app | gzip > my2ls_app.tar.gz
-
-      - name: Copy Docker image to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          source: my2ls_app.tar.gz
-          target: ${{ secrets.CONTABO_MY2LS_USER }}@${{ secrets.CONTABO_MY2LS_IP }}:/home/${{ secrets.CONTABO_MY2LS_USER }}/my2ls_app.tar.gz
-          port: 22 # Add this if using a non-standard port
-          debug: true # Enable debug output for troubleshooting
-
-      - name: Load Docker image on server and start container
+      - name: Push Docker image to registry
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.CONTABO_MY2LS_USER }}@${{ secrets.CONTABO_MY2LS_IP }} << 'EOF'
-            # Load the Docker image
-            docker load -i /home/${{ secrets.CONTABO_MY2LS_USER }}/my2ls_app.tar.gz
-            
-            # Remove existing container if it exists
-            docker rm -f my2ls_app || true
-            
-            # Run the new container
-            docker run -d -p 80:3000 --name my2ls_app my2ls_app
-          EOF
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker tag my2ls:latest harutyunianarthur/my2ls:latest
+          docker push harutyunianarthur/my2ls:latest
+
+      - name: Install sshpass
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+
+      - name: Deploy to Server
+        run: |
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.CONTABO_MY2LS_IP }} -p 22 '
+            # Remove all containers if they exist
+            if [ "$(docker ps -a -q)" ]; then 
+              docker rm -f $(docker ps -a -q); 
+            fi
+          
+            # Remove all images if they exist
+            if [ "$(docker images -q)" ]; then 
+              docker rmi -f $(docker images -q); 
+            fi
+          
+            # Pull the latest Docker image
+            docker pull harutyunianarthur/my2ls
+          
+            # Run the container
+            docker run -d -e PORT="3000" -e NODE_ENV="production" --name my2ls-container -p 3000:3000 harutyunianarthur/my2ls
+          '
