@@ -36,11 +36,18 @@ jobs:
         with:
           source: my2ls_app.tar.gz
           target: ${{ secrets.CONTABO_MY2LS_USER }}@${{ secrets.CONTABO_MY2LS_IP }}:/home/${{ secrets.CONTABO_MY2LS_USER }}/my2ls_app.tar.gz
+          port: 22 # Add this if using a non-standard port
+          debug: true # Enable debug output for troubleshooting
 
       - name: Load Docker image on server and start container
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.CONTABO_MY2LS_USER }}@${{ secrets.CONTABO_MY2LS_IP }} << 'EOF'
+            # Load the Docker image
             docker load -i /home/${{ secrets.CONTABO_MY2LS_USER }}/my2ls_app.tar.gz
+            
+            # Remove existing container if it exists
             docker rm -f my2ls_app || true
+            
+            # Run the new container
             docker run -d -p 80:3000 --name my2ls_app my2ls_app
           EOF
