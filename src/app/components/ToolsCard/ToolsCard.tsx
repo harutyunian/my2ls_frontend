@@ -2,7 +2,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import style from "./ToolsCard.module.css";
 import Link from "next/link";
-import Image from "next/image";
 
 interface ITooldCardProps {
   name: string;
