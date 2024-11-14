@@ -1,1 +1,1 @@
-const jsonPage = ["json", "json formatter"];
+export const jsonPage = ["json", "json formatter"];
