@@ -1,0 +1,9 @@
+.editorContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+.editor{
+    border: solid black 2px;
+}
