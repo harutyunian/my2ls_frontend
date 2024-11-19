@@ -9,4 +9,9 @@ export const MAIN_ROUTES = [
     path: "/json",
     icon: "https://static-00.iconduck.com/assets.00/json-icon-1500x2048-leitoong.png",
   },
+  {
+    name: "aper",
+    path: "/aper",
+    icon: "https://static-00.iconduck.com/assets.00/json-icon-1500x2048-leitoong.png",
+  },
 ];

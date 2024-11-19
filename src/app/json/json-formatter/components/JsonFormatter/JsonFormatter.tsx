@@ -10,13 +10,10 @@ export default function JsonFormatter() {
     const handleValidate = () => {
         try {
             const json = JSON.stringify(JSON.parse(input), null, 2);
-            console.log(JSON);
             setInput('sdas')
             setOutput(json);
-            console.log(json);
         } catch (e: unknown) {
             setOutput(e as string);
-            // console.log(e);
         }
     };
 
