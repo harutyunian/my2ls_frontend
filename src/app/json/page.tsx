@@ -35,7 +35,6 @@ export default function JsonPage(){
             options={{ readOnly: true}}
             value={output}
             className={style.editor}
-
         />
     </div>
 }
