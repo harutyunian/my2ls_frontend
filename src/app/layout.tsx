@@ -8,6 +8,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import lightTheme from "@/theme/light";
+import {GOOGLE_ADSENSE_ID} from "@/constant/google-adsese";
 
 // // @ts-ignore
 // const geistSans = localFont({
@@ -44,16 +45,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+      <html lang="en">
+      <head>
+          <script async
+                  src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${GOOGLE_ADSENSE_ID}`}
+                  crossOrigin="anonymous">
+
+          </script>
+      </head>
       <ThemeProvider theme={lightTheme}>
-        <CssBaseline />
-        {globalStyles}
-        <body>
-          <Header />
+          <CssBaseline/>
+          {globalStyles}
+          <body>
+          <Header/>
           {children}
-        </body>
+          </body>
       </ThemeProvider>
-      <GoogleAnalysticsConfig />
-    </html>
+      <GoogleAnalysticsConfig/>
+      </html>
   );
 }
