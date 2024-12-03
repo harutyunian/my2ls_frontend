@@ -26,13 +26,19 @@ export default function JsonPage() {
   return (
     <div className={style.editorContainer}>
       <CustomEditor
+        width="45%"
+        height="60vh"
         value={input}
         className={style.editor}
         onChange={handleEditorChange}
         defaultLanguage="json"
       />
-      <Button onClick={handleValidate}>Validate eeee</Button>
+      <Button size="large" variant="contained" onClick={handleValidate}>
+        Validate
+      </Button>
       <CustomEditor
+        width="45%"
+        height="60vh"
         options={{ readOnly: true }}
         value={output}
         className={style.editor}
