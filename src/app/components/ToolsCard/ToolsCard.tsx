@@ -14,7 +14,14 @@ export function ToolsCard(props: ITooldCardProps) {
   return (
     <Link href={path}>
       <Card className={style.container}>
-        <CardContent>
+        <CardContent
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
           <h3 className={style.title}>{name}</h3>
           <img src={icon} className={style.icon} />
         </CardContent>

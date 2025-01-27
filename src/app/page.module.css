@@ -6,3 +6,7 @@
     align-items: center;
     width: 100%;
 }
+.links{
+    display: flex;
+    flex-direction: row;
+}
