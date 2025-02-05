@@ -1,13 +1,3 @@
-/*.editorContainer{*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: flex-start;*/
-/*    gap: 20px;*/
-/*}*/
-/*.editor{*/
-/*    border: solid black 2px;*/
-/*}*/
-
 .container {
     display: flex;
     flex-direction: column;
@@ -22,10 +12,9 @@
 
 .editorContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 1rem;
     width: 100%;
+    justify-content: center;
 }
 
 .controlSection {
@@ -34,4 +23,9 @@
     align-items: center;
     gap: 1rem;
     margin: 1rem 0;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 1rem;
 }
