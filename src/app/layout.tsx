@@ -8,19 +8,6 @@ import lightTheme from "@/theme/light";
 import { GOOGLE_ADSENSE_ID } from "@/constant/google-adsese";
 import { KEYWORDS } from "@/constant/seo/keywords.en";
 
-// // @ts-ignore
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// // @ts-ignore
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
-
 export const metadata: Metadata = {
   applicationName: "My tools",
   title: "All-in-One Online Tools",
