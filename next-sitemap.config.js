@@ -1,4 +1,3 @@
-/** @type {import('next-sitemap').IConfig} */
 module.exports = {
     siteUrl: "https://my2ls.com",
     generateRobotsTxt: true,
@@ -14,7 +13,7 @@ module.exports = {
             },
         ],
     },
-    transform: async (config: import('next-sitemap').IConfig, path: string) => {
+    transform: async (path) => {
         return {
             loc: path, // Absolute URL of the page
             lastmod: new Date().toISOString(), // Last modified date

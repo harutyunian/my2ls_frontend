@@ -25,7 +25,7 @@ jobs:
       - name: Build Application
         run: npm run build
 
-      - name: Sitemap generation
+      - name: Generate Sitemap
         run: npm run postbuild
 
   deploy:
