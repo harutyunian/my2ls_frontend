@@ -1,9 +1,12 @@
 import { MAIN_ROUTES } from "@/routes/rutes";
 import { ToolsCard } from "./components/ToolsCard/ToolsCard";
 import { Typography, Container, Box } from "@mui/material";
+import {useTranslations} from "next-intl";
 
 export default function Home() {
     const mode = 'dark'
+
+    const t = useTranslations()
 
     return (
         <Container maxWidth="xl">
@@ -31,7 +34,7 @@ export default function Home() {
                         fontSize: { xs: '2rem', sm: '3rem', md: '3.75rem' },
                     }}
                 >
-                    All-in-One Online Tools
+                    {t('name')}  All-in-One Online Tools
                 </Typography>
 
                 <Typography

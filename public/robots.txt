@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://my2ls.com
+
+# Sitemaps
+Sitemap: https://my2ls.com/sitemap.xml
