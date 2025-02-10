@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import CustomEditor from "@/app/components/CustomEditor/CustomEditor";
+import CustomEditor from "@/app/[locales]/components/CustomEditor/CustomEditor";
 import styles from "./page.module.css";
 
 export default function ScssConverterPage() {

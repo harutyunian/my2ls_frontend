@@ -27,11 +27,13 @@ const globalStyles = (
 
 export default function RootLayout({
   children,
+    params,
 }: Readonly<{
   children: React.ReactNode;
+  params: {locale: string};
 }>) {
   return (
-    <html lang="en">
+    <html lang={params.locale}>
     <Head>
       <title>
         My2LS - All-in-One Online Tools for Developers and Tech Enthusiasts
