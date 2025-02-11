@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - ci_cd
 
 jobs:
   build:
@@ -53,20 +54,21 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.CONTABO_MY2LS_IP }} -p 22 '
-            # Remove all containers if they exist
-            if [ "$(docker ps -a -q)" ]; then 
-              docker rm -f $(docker ps -a -q); 
-            fi
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=3 -o StrictHostKeyChecking=no root@${{ secrets.CONTABO_MY2LS_IP }} -p 22 "
+            set -e  # Exit if any command fails
           
-            # Remove all images if they exist
-            if [ "$(docker images -q)" ]; then 
-              docker rmi -f $(docker images -q); 
+            # Ensure Docker is running
+            systemctl restart docker || true
+          
+            # Stop and remove existing container
+            if [ \$(docker ps -q -f name=my2ls-container) ]; then
+              docker stop my2ls-container
+              docker rm my2ls-container
             fi
           
             # Pull the latest Docker image
             docker pull harutyunianarthur/my2ls
           
-            # Run the container
-            docker run -d -e PORT="3000" -e NODE_ENV="production" --name my2ls-container -p 3000:3000 harutyunianarthur/my2ls
-          '
+            # Run the new container
+            docker run -d --restart unless-stopped -e PORT='3000' -e NODE_ENV='production' --name my2ls-container -p 3000:3000 harutyunianarthur/my2ls
+          "
