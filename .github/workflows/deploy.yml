@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - ci_cd
 
 jobs:
   build:
@@ -54,16 +53,16 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=3 -o StrictHostKeyChecking=no root@${{ secrets.CONTABO_MY2LS_IP }} -p 22 "
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.CONTABO_MY2LS_IP }} -p 22 "
             set -e  # Exit if any command fails
           
             # Ensure Docker is running
             systemctl restart docker || true
           
-            # Stop and remove existing container
-            if [ \$(docker ps -q -f name=my2ls-container) ]; then
-              docker stop my2ls-container
-              docker rm my2ls-container
+            # Stop and remove existing container if it exists
+            if [ \$(docker ps -a -q -f name=my2ls-container) ]; then
+              docker stop my2ls-container || true
+              docker rm my2ls-container || true
             fi
           
             # Pull the latest Docker image
