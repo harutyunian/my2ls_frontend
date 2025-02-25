@@ -40,6 +40,15 @@ export default function RootLayout({
       </title>
       <meta name="keywords" content={`${KEYWORDS.join(", ")}`}/>
       <meta name="google-adsense-account" content="ca-pub-2937649825824504"/>
+      <meta http-equiv="Content-Security-Policy"
+            content="default-src
+            'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+             style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com
+              https://fonts.googleapis.com;
+              script-src 'self' https://cdn.jsdelivr.net;
+              font-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+              worker-src 'self' blob:"
+      />
       <meta
           name="description"
           content="Explore My2LS: your ultimate platform for free online tools. Access code editors, JSON processors, converters, formatters, and more. Simplify your workflow today!"
@@ -75,12 +84,12 @@ export default function RootLayout({
     <ThemeProvider theme={lightTheme}>
       <CssBaseline/>
       {globalStyles}
-        <body>
-          <Header />
-          {children}
-        </body>
-      </ThemeProvider>
-      <GoogleAnalysticsConfig />
+      <body>
+      <Header/>
+      {children}
+      </body>
+    </ThemeProvider>
+    <GoogleAnalysticsConfig/>
     </html>
   );
 }

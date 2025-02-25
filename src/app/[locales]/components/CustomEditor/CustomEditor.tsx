@@ -1,8 +1,15 @@
 'use client';
 import Editor from '@monaco-editor/react';
 import style from './CustomEditor.module.css';
+import dynamic from 'next/dynamic';
+
 
 type MonacoEditorProps = React.ComponentProps<typeof Editor>;
+
+const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
+    ssr: false,
+    loading: () => <p>Loading editor...</p>,
+});
 
 interface ICustomEditorProps extends MonacoEditorProps {
     width?: string;
@@ -20,7 +27,7 @@ export default function CustomEditor(props: ICustomEditorProps) {
             <div className={style.style}>
                 {/* Custom content or styles */}
             </div>
-            <Editor
+            <MonacoEditor
                 {...rest}
             />
         </div>

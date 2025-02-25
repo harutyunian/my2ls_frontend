@@ -1,4 +1,3 @@
-
 interface Route {
     name: string;
     path: string;
@@ -13,16 +12,16 @@ export const MAIN_ROUTES = [
     {
         name: "CSS Formatter",
         path: "css",
-        child: [
-            {
-                name: "CSS formatter",
-                path: `css/scss-to-css-converter`
-            }
-        ]
     },
     {
         name: "Code Formatter and Beautifier",
         path: "/code-formatter",
+        child: [
+            {
+                name: "CSS formatter",
+                path: `code-formatter/scss-to-css-converter`
+            }
+        ]
     },
     {
         name: "Code Converters",
