@@ -1,6 +1,7 @@
 import createNextIntlPlugin from "next-intl/plugin";
-
-const withNextIntl = createNextIntlPlugin()
+import {getRequestConfig} from "next-intl/server";
+// import aper from './src/request.ts'
+const withNextIntl = createNextIntlPlugin('./src/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {};
