@@ -110,7 +110,7 @@ export default function LangSwitch() {
                     {filteredCountries.length === 0 ? (
                         <Box className={styles.noResults}>
                             <Typography variant="body1" color="textSecondary">
-                                No languages found matching "{searchQuery}"
+                                No languages found matching {searchQuery}
                             </Typography>
                         </Box>
                     ) : (
