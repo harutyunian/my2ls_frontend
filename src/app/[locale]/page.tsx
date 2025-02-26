@@ -2,6 +2,7 @@ import { MAIN_ROUTES } from "@/routes/rutes";
 import { ToolsCard } from "./components/ToolsCard/ToolsCard";
 import { Typography, Container, Box } from "@mui/material";
 import {useTranslations} from "next-intl";
+import LangSwitch from "@/app/[locale]/components/LangSwitch/LangSwitch";
 
 export default function Home() {
     const mode = 'dark'
@@ -10,6 +11,7 @@ export default function Home() {
 
     return (
         <Container maxWidth="xl">
+            <LangSwitch/>
             <Box
                 sx={{
                     display: 'flex',
