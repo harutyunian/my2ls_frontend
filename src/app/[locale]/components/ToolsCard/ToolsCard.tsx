@@ -1,7 +1,7 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Link from "next/link";
+import {Link} from '@/i18n/routing'
 import Box from "@mui/material/Box";
 
 // Import the same icons we used in the header

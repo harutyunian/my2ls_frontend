@@ -1,4 +1,4 @@
-import {toolsRoutes} from "@/app/[locales]/code-formatter/toolsRoutes";
+import {toolsRoutes} from "@/app/[locale]/code-formatter/toolsRoutes";
 import Link from "next/link";
 
 

@@ -10,7 +10,7 @@ import ValidationIcon from '@mui/icons-material/CheckCircleOutline';
 import ErrorIcon from '@mui/icons-material/ErrorOutline';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CodeIcon from '@mui/icons-material/Code';
-import CustomEditor from "@/app/[locales]/components/CustomEditor/CustomEditor";
+import CustomEditor from "@/app/[locale]/components/CustomEditor/CustomEditor";
 import styles from "./page.module.css";
 
 export default function JsonFormatterPage() {
