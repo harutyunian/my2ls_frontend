@@ -1,4 +1,6 @@
-export const COUNTRIES = [
+import {ILanguage} from "@/types/lang";
+
+export const COUNTRIES: Array<ILanguage> = [
     {
         lang: 'Armenian',
         originalLanguageName: 'Հայերեն',

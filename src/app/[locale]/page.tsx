@@ -11,7 +11,6 @@ export default function Home() {
 
     return (
         <Container maxWidth="xl">
-            <LangSwitch/>
             <Box
                 sx={{
                     display: 'flex',
