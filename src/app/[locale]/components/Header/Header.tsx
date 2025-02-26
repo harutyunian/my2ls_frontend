@@ -18,7 +18,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import {useColorScheme} from '@mui/material';
-import Link from 'next/link';
+import {Link} from '@/i18n/routing';
 import { usePathname } from 'next/navigation';
 
 // Route-specific icons
@@ -39,6 +39,7 @@ import AnalyticsIcon from '@mui/icons-material/Analytics';
 import TerminalIcon from '@mui/icons-material/Terminal';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import { MAIN_ROUTES } from "@/routes/rutes";
+import LangSwitch from "@/app/[locale]/components/LangSwitch/LangSwitch";
 
 interface Route {
     name: string;
@@ -182,6 +183,7 @@ export default function Header() {
                                 My 2 Tools
                             </Typography>
                         </Link>
+                        <LangSwitch/>
                     </Box>
 
                     <IconButton

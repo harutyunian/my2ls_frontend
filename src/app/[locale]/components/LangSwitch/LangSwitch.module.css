@@ -1,0 +1,138 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.languageButton {
+    border-radius: 8px;
+    padding: 8px 16px;
+    transition: all 0.2s ease;
+    color: white
+}
+
+.buttonText {
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+.dialogPaper {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    background-color: #f8f9fa;
+}
+
+.dialogHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px 10px;
+    gap: 12px;
+    position: relative;
+}
+
+.headerIcon {
+    color: #3f51b5;
+    font-size: 32px;
+}
+
+.searchContainer {
+    padding: 0 20px;
+    margin: 16px 0;
+}
+
+.searchPaper {
+    display: flex;
+    align-items: center;
+    padding: 2px 16px;
+    border-radius: 20px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+}
+
+.searchIcon {
+    color: #757575;
+    margin-right: 8px;
+}
+
+.searchInput {
+    padding: 8px 0;
+}
+
+.dialogContent {
+    padding: 0 20px 20px !important;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.languageGrid {
+    margin-top: 8px;
+}
+
+.languageOption {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 14px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    height: 100%;
+}
+
+.languageOption:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.selectedOption {
+    background-color: #f0f4ff;
+    border-left: 3px solid #3f51b5;
+}
+
+.flagContainer {
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    margin-right: 10px;
+}
+
+.flagIcon {
+    width: 28px !important;
+    height: 28px !important;
+}
+
+.languageText {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.langName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+.nativeName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+
+.noResults {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    text-align: center;
+}
